@@ -2,12 +2,13 @@ import React, { useRef } from "react";
 import styles from "./Slider.module.css";
 
 interface Props {
-    children: React.ReactElement
-    step?: number
+    children: React.ReactElement;
+    step?: number;
+    isDark: boolean;
 }
 
-const Slider = ({children, step = 150}: Props) => {
-    const sliderRef = useRef<HTMLElement | null>(null);
+const Slider = ({children, step = 150, isDark}: Props) => {
+    const sliderRef = useRef<HTMLDivElement | null>(null);
 
     const scrollLeft = () => {
         if (!sliderRef.current) return;
@@ -20,9 +21,11 @@ const Slider = ({children, step = 150}: Props) => {
     }
 
     return (
-        <div className={styles.slider}>
+        <div className={`${styles.slider} ${isDark ? styles.dark : styles.light}`}>
             <button onClick={scrollLeft} className={styles.arrow}>{'<'}</button>
-            {React.cloneElement(children as React.ReactElement<any>, { ref: sliderRef })}
+            <div ref={sliderRef} className={styles.sliderContent}>
+                {children}
+            </div>
             <button onClick={scrollRight} className={styles.arrow}>{'>'}</button>
         </div>
     )
