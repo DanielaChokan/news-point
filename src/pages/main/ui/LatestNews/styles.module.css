@@ -4,3 +4,7 @@
     width: 100%;
     gap: 32px;
 }
+
+.viewMore {
+    cursor: pointer;
+}
